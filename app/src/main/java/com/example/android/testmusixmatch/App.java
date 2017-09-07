@@ -21,7 +21,7 @@ public class App extends Application {
         super.onCreate();
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("http://api.musixmatch.com/")
+                .baseUrl("http://api.musixmatch.com/ws/1.1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

@@ -14,8 +14,8 @@ import retrofit2.http.Query;
 
 public interface MuzixApi {
 
-    @GET("ws/1.1/chart.artists.get")
-    Call<List<Artist>> getData(@Query("page") int pageNumber, @Query("page_size")
-            int pageSize, @Query("country") String country);
+    @GET("chart.artists.get")
+    Call<List<Artist>> getData(@Query("apikey") String apiKey, @Query("page")
+            int pageNumber, @Query("page_size") int pageSize, @Query("country") String country);
 
 }
