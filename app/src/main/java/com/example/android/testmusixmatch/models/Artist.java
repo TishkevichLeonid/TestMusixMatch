@@ -13,20 +13,42 @@ import java.util.List;
 public class Artist {
 
     @SerializedName("artist_id")
-    @Expose
+
     private Integer artistId;
     @SerializedName("artist_mbid")
-    @Expose
     private String artistMbid;
     @SerializedName("artist_name")
-    @Expose
     private String artistName;
-    @SerializedName("artist_alias_list")
+    @SerializedName("artist_name_translation_list")
+
+    private List<Object> artistNameTranslationList = null;
+    @SerializedName("artist_comment")
     @Expose
-    private List<Object> artistAliasList = null;
+    private String artistComment;
+    @SerializedName("artist_country")
+    @Expose
+    private String artistCountry;
     @SerializedName("artist_rating")
     @Expose
     private Integer artistRating;
+    @SerializedName("artist_twitter_url")
+    @Expose
+    private String artistTwitterUrl;
+    @SerializedName("artist_vanity_id")
+    @Expose
+    private String artistVanityId;
+    @SerializedName("artist_edit_url")
+    @Expose
+    private String artistEditUrl;
+    @SerializedName("artist_share_url")
+    @Expose
+    private String artistShareUrl;
+    @SerializedName("restricted")
+    @Expose
+    private Integer restricted;
+    @SerializedName("managed")
+    @Expose
+    private Integer managed;
     @SerializedName("updated_time")
     @Expose
     private String updatedTime;
@@ -55,12 +77,28 @@ public class Artist {
         this.artistName = artistName;
     }
 
-    public List<Object> getArtistAliasList() {
-        return artistAliasList;
+    public List<Object> getArtistNameTranslationList() {
+        return artistNameTranslationList;
     }
 
-    public void setArtistAliasList(List<Object> artistAliasList) {
-        this.artistAliasList = artistAliasList;
+    public void setArtistNameTranslationList(List<Object> artistNameTranslationList) {
+        this.artistNameTranslationList = artistNameTranslationList;
+    }
+
+    public String getArtistComment() {
+        return artistComment;
+    }
+
+    public void setArtistComment(String artistComment) {
+        this.artistComment = artistComment;
+    }
+
+    public String getArtistCountry() {
+        return artistCountry;
+    }
+
+    public void setArtistCountry(String artistCountry) {
+        this.artistCountry = artistCountry;
     }
 
     public Integer getArtistRating() {
@@ -69,6 +107,54 @@ public class Artist {
 
     public void setArtistRating(Integer artistRating) {
         this.artistRating = artistRating;
+    }
+
+    public String getArtistTwitterUrl() {
+        return artistTwitterUrl;
+    }
+
+    public void setArtistTwitterUrl(String artistTwitterUrl) {
+        this.artistTwitterUrl = artistTwitterUrl;
+    }
+
+    public String getArtistVanityId() {
+        return artistVanityId;
+    }
+
+    public void setArtistVanityId(String artistVanityId) {
+        this.artistVanityId = artistVanityId;
+    }
+
+    public String getArtistEditUrl() {
+        return artistEditUrl;
+    }
+
+    public void setArtistEditUrl(String artistEditUrl) {
+        this.artistEditUrl = artistEditUrl;
+    }
+
+    public String getArtistShareUrl() {
+        return artistShareUrl;
+    }
+
+    public void setArtistShareUrl(String artistShareUrl) {
+        this.artistShareUrl = artistShareUrl;
+    }
+
+    public Integer getRestricted() {
+        return restricted;
+    }
+
+    public void setRestricted(Integer restricted) {
+        this.restricted = restricted;
+    }
+
+    public Integer getManaged() {
+        return managed;
+    }
+
+    public void setManaged(Integer managed) {
+        this.managed = managed;
     }
 
     public String getUpdatedTime() {

@@ -13,7 +13,6 @@ public class Message {
     @Expose
     private Header header;
     @SerializedName("body")
-    @Expose
     private Body body;
 
     public Header getHeader() {

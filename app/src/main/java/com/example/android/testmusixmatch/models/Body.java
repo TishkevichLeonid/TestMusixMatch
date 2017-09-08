@@ -1,18 +1,16 @@
 package com.example.android.testmusixmatch.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 /**
- * Created by leonidtiskevic on 08.09.17.
+ * json покажи
  */
 
 public class Body {
 
     @SerializedName("artist_list")
-    @Expose
     private List<ArtistList> artistList = null;
 
     public List<ArtistList> getArtistList() {
@@ -23,4 +21,6 @@ public class Body {
         this.artistList = artistList;
     }
 }
+
+
 

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.testmusixmatch.models.ArtistModel;
+import com.example.android.testmusixmatch.models.Artist;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private List<ArtistModel> mArtistList;
+    private List<Artist> mArtistList;
 
-    public ListAdapter(List<ArtistModel> artists){
+    public ListAdapter(List<Artist> artists){
         this.mArtistList = artists;
     }
 
@@ -32,9 +32,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ArtistModel artist = mArtistList.get(position);
-        holder.mName.setText(Html.fromHtml(String.valueOf(artist.getMessage().getBody()
-                .getArtistList().get(position))));
+        Artist artist = mArtistList.get(position);
+        holder.mName.setText(Html.fromHtml(String.valueOf(artist.getArtistName())));
     }
 
     @Override
