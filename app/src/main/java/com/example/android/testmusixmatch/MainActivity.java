@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.android.testmusixmatch.models.Artist;
+import com.example.android.testmusixmatch.models.ArtistModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "test_log";
 
     private RecyclerView mRecyclerView;
-    private List<Artist> mArtistList;
+    private List<ArtistModel> mArtistList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,21 +34,29 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        ListAdapter adapter = new ListAdapter(mArtistList);
-        mRecyclerView.setAdapter(adapter);
         Log.d(TAG, "вызов1");
 
-        App.getApi().getData("e9693a724b2cff4dfde5fc39f9bc85a6", 1, 3, "it").enqueue(new Callback<List<Artist>>() {
+        ListAdapter adapter = new ListAdapter(mArtistList);
+        mRecyclerView.setAdapter(adapter);
+        Log.d(TAG, "вызов2");
+
+        App.getApi().getData("e9693a724b2cff4dfde5fc39f9bc85a6", 1, 3, "it", "json").enqueue(new Callback<List<ArtistModel>>() {
             @Override
-            public void onResponse(Call<List<Artist>> call, Response<List<Artist>> response) {
-                Log.d(TAG, "вызов2");
-                mArtistList.addAll(response.body());
-                mRecyclerView.getAdapter().notifyDataSetChanged();
+            public void onResponse(Call<List<ArtistModel>> call, Response<List<ArtistModel>> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "вызов3");
+                    Toast.makeText(MainActivity.this, "sucssesful query", Toast.LENGTH_SHORT);
+                    Log.d(TAG, "вызов4");
+                    mArtistList.addAll(response.body());
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                }
+                else Toast.makeText(MainActivity.this, "server is unavalible", Toast.LENGTH_SHORT);
             }
 
             @Override
-            public void onFailure(Call<List<Artist>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "An error occurred during networking",
+            public void onFailure(Call<List<ArtistModel>> call, Throwable t) {
+                Log.d(TAG, "вызов5");
+                Toast.makeText(MainActivity.this, "error with query",
                         Toast.LENGTH_SHORT).show();
             }
         });
