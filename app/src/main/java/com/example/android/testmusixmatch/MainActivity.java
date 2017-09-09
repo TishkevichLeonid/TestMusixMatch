@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "test_log";
     public static final String KEY = "e9693a724b2cff4dfde5fc39f9bc85a6";
+    public static final String RUS = "ru";
+    public static final String ITALY = "it";
+    public static final int COUNT_ARTIST = 100;
 
     private RecyclerView mRecyclerView;
     private List<Artist> mArtistList;
@@ -38,25 +41,23 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "вызов1");
 
-        final ListAdapter adapter = new ListAdapter(mArtistList);
+        ListAdapter adapter = new ListAdapter(mArtistList);
         mRecyclerView.setAdapter(adapter);
         Log.d(TAG, "вызов2");
 
-        App.getApi().getData(KEY, 1,3,"it").enqueue(new Callback<MessageWrap>() {
+        App.getApi().getData(KEY, 1, COUNT_ARTIST, RUS).enqueue(new Callback<MessageWrap>() {
             @Override
             public void onResponse(Call<MessageWrap> call, Response<MessageWrap> response) {
 
                 try {
-                    for(ArtistList al : response.body().getMessage().getBody().getArtistList()){
-                        mArtistList.add(al.getArtist());
+                    for(ArtistList all : response.body().getMessage().getBody().getArtistList()){
+                        mArtistList.add(all.getArtist());
                     }
-                    adapter.notifyDataSetChanged();
+                    mRecyclerView.getAdapter().notifyDataSetChanged();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
                 Log.e("onResponse", "_" + response.toString());
-                Log.e("tttt", "вывод - у тебя очень плохая структура ответа и придется делать обертки, как я сделал для класс message");
-
             }
 
             @Override
@@ -64,28 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("fail", t.toString());
 
             }
-        });  //с от
-
-        /*App.getApi().getData(KEY, 1, 3, "it").enqueue(new Callback<List<Artist>>() {
-            @Override
-            public void onResponse(Call<List<Artist>> call, Response<List<Artist>> response) {
-                if (response.isSuccessful()) {
-                    mArtistList.addAll(response.body());
-                    mRecyclerView.getAdapter().notifyDataSetChanged();
-                }
-                else {
-                    Toast.makeText(MainActivity.this, "server is unavailable", Toast.LENGTH_SHORT).show();
-                }
-            }
-            // понял, сейчас попробуем
-
-            @Override
-            public void onFailure(Call<List<Artist>> call, Throwable t) {
-                Log.d(TAG, t.toString());
-                Toast.makeText(MainActivity.this, "error",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });*/
+        });
     }
 }
 
