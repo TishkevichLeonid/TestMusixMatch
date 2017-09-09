@@ -8,9 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 
-import com.example.android.testmusixmatch.models.Artist;
-import com.example.android.testmusixmatch.models.ArtistList;
-import com.example.android.testmusixmatch.models.MessageWrap;
+import com.example.android.testmusixmatch.modelArtist.Artist;
+import com.example.android.testmusixmatch.modelArtist.ArtistList;
+import com.example.android.testmusixmatch.modelArtist.MessageWrap;
+import com.example.android.testmusixmatch.modelTrack.MessageWrapTrack;
+import com.example.android.testmusixmatch.modelTrack.Track;
+import com.example.android.testmusixmatch.modelTrack.TrackList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private List<Artist> mArtistList;
+    public static List<Track> mTrackList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +43,34 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle((Html.fromHtml("<font color=\"#FF4081\">" + getString(R.string.app_name) + "</font>")));
 
         mArtistList = new ArrayList<>();
+        mTrackList = new ArrayList<>();
+
+        App.getApi().getDataTrack(KEY, 1, 3, "it").enqueue(new Callback<MessageWrapTrack>() {
+            @Override
+            public void onResponse(Call<MessageWrapTrack> call, Response<MessageWrapTrack> response) {
+                try {
+                    for(TrackList all : response.body().getMessage().getBody().getTrackList()){
+                        mTrackList.add(all.getTrack());
+                    }
+                    //  mRecyclerView.getAdapter().notifyDataSetChanged();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                Log.e("onResponse123", "_" + response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<MessageWrapTrack> call, Throwable t) {
+                Log.e("fail", t.toString());
+            }
+        });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.posts_recycle_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        Log.d(TAG, "вызов1");
-
         ListAdapter adapter = new ListAdapter(mArtistList);
         mRecyclerView.setAdapter(adapter);
-        Log.d(TAG, "вызов2");
 
         App.getApi().getData(KEY, 1, COUNT_ARTIST, RUS).enqueue(new Callback<MessageWrap>() {
             @Override
@@ -71,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 }
 

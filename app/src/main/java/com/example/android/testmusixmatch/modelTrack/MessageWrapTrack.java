@@ -1,4 +1,4 @@
-package com.example.android.testmusixmatch.models;
+package com.example.android.testmusixmatch.modelTrack;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,16 +6,17 @@ import com.google.gson.annotations.SerializedName;
  * Created by leonidtiskevic on 09.09.17.
  */
 
-public class MessageWrap {
+public class MessageWrapTrack {
 
     @SerializedName("message")
-    Message message;
+    MessageTrack message;
 
-    public Message getMessage() {
+    public MessageTrack getMessage() {
         return message;
     }
 
-    public void setMessage(Message message) {
+    public void setMessage(MessageTrack message) {
         this.message = message;
     }
 }
+

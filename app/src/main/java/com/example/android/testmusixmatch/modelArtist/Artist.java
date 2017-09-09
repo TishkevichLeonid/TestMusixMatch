@@ -1,4 +1,4 @@
-package com.example.android.testmusixmatch.models;
+package com.example.android.testmusixmatch.modelArtist;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,7 +20,6 @@ public class Artist {
     @SerializedName("artist_name")
     private String artistName;
     @SerializedName("artist_name_translation_list")
-
     private List<Object> artistNameTranslationList = null;
     @SerializedName("artist_comment")
     @Expose

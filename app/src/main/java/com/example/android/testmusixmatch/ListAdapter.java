@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.testmusixmatch.models.Artist;
+import com.example.android.testmusixmatch.modelArtist.Artist;
 
 import java.util.List;
 
@@ -33,8 +33,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Artist artist = mArtistList.get(position);
+        MainActivity.mTrackList.get(0);
         holder.mName.setText(Html.fromHtml(String.valueOf(artist.getArtistName())));
         holder.mNumber.setText(Integer.toString(position + 1));
+        holder.mTestTracksView.setText(String.valueOf(MainActivity.mTrackList.get(0).getTrackName()));
+
     }
 
     @Override
@@ -49,12 +52,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         TextView mName;
         TextView mNumber;
+        TextView mTestTracksView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mName = (TextView) itemView.findViewById(R.id.artist_post);
             mNumber = (TextView) itemView.findViewById(R.id.number_of_artist);
-
+            mTestTracksView = (TextView) itemView.findViewById(R.id.test_tracks_view);
         }
     }
 }

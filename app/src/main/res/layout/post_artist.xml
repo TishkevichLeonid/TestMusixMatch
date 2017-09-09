@@ -35,6 +35,13 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="27dp"/>
 
+        <TextView
+            android:id="@+id/test_tracks_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test"/>
+
     </LinearLayout>
+
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.android.testmusixmatch.models;
+package com.example.android.testmusixmatch.modelArtist;
 
 import com.google.gson.annotations.SerializedName;
 
