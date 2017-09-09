@@ -1,9 +1,11 @@
 package com.example.android.testmusixmatch;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 
 import com.example.android.testmusixmatch.models.Artist;
@@ -32,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle((Html.fromHtml("<font color=\"#FF4081\">" + getString(R.string.app_name) + "</font>")));
 
         mArtistList = new ArrayList<>();
 

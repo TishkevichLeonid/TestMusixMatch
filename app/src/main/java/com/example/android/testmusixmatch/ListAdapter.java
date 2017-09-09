@@ -34,6 +34,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Artist artist = mArtistList.get(position);
         holder.mName.setText(Html.fromHtml(String.valueOf(artist.getArtistName())));
+        holder.mNumber.setText(Integer.toString(position + 1));
     }
 
     @Override
@@ -47,10 +48,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView mName;
+        TextView mNumber;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mName = (TextView) itemView.findViewById(R.id.artist_post);
+            mNumber = (TextView) itemView.findViewById(R.id.number_of_artist);
+
         }
     }
 }
