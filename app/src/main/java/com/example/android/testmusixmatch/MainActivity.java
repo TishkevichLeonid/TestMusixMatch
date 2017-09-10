@@ -13,6 +13,7 @@ import com.example.android.testmusixmatch.modelArtist.ArtistList;
 import com.example.android.testmusixmatch.modelArtist.MessageWrap;
 import com.example.android.testmusixmatch.modelTrack.MessageWrapTrack;
 import com.example.android.testmusixmatch.modelTrack.Track;
+import com.example.android.testmusixmatch.modelTrack.TrackBox;
 import com.example.android.testmusixmatch.modelTrack.TrackList;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "test_log";
-    public static final String KEY = "e9693a724b2cff4dfde5fc39f9bc85a6";
+    private static final String KEY = "e9693a724b2cff4dfde5fc39f9bc85a6";
     public static final String RUS = "ru";
     public static final String ITALY = "it";
     public static final int COUNT_ARTIST = 100;
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private List<Artist> mArtistList;
-    public static List<Track> mTrackList;
+    private TrackBox mTrackBox;
+    private List<Track> mTrackList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         mTrackList = new ArrayList<>();
 
         receiveTracks();
+        mTrackBox = TrackBox.get();
+        mTrackBox.setTrackList(mTrackList);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.posts_recycle_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void receiveTracks(){
-        App.getApi().getDataTrack(KEY, 1, 3, "ru").enqueue(new Callback<MessageWrapTrack>() {
+        App.getApi().getDataTrack(KEY, 1, COUNT_TRACK, "ru").enqueue(new Callback<MessageWrapTrack>() {
             @Override
             public void onResponse(Call<MessageWrapTrack> call, Response<MessageWrapTrack> response) {
                 try {
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                Log.e("onResponse123", "_" + response.toString());
+                Log.e("onResponse123", response.toString());
             }
 
             @Override
@@ -93,13 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                Log.e("onResponse", "_" + response.toString());
+                Log.e("onResponse", response.toString());
             }
 
             @Override
             public void onFailure(Call<MessageWrap> call, Throwable t) {
                 Log.e("fail", t.toString());
-
             }
         });
     }

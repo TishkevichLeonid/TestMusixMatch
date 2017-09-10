@@ -20,6 +20,14 @@ public class TrackBox {
         return sTrackBox;
     }
 
+    public List<Track> getTrackList() {
+        return mTrackList;
+    }
+
+    public void setTrackList(List<Track> trackList) {
+        mTrackList = trackList;
+    }
+
     private TrackBox(){
         mTrackList = new ArrayList<>();
     }

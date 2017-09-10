@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.testmusixmatch.modelArtist.Artist;
+import com.example.android.testmusixmatch.modelTrack.TrackBox;
 
 import java.util.List;
 
@@ -18,9 +19,11 @@ import java.util.List;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     private List<Artist> mArtistList;
+    private TrackBox mBox;
 
     public ListAdapter(List<Artist> artists){
         this.mArtistList = artists;
+        mBox = TrackBox.get();
     }
 
     @Override
@@ -33,10 +36,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Artist artist = mArtistList.get(position);
-        MainActivity.mTrackList.get(2);
+        mBox.getTrack(artist.getArtistId());
         holder.mName.setText(Html.fromHtml(String.valueOf(artist.getArtistName())));
         holder.mNumber.setText(Integer.toString(position + 1));
-        holder.mTestTracksView.setText(String.valueOf(MainActivity.mTrackList.get(2).getTrackName()));
+        if (mBox.getTrack(artist.getArtistId()) != null) {
+            holder.mTestTracksView.setText(mBox.getTrack(artist.getArtistId()).getTrackName());
+        } else{
+            holder.mTestTracksView.setText(" ");
+        }
 
     }
 
