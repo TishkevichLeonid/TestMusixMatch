@@ -39,7 +39,9 @@
             android:id="@+id/test_tracks_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test"/>
+            android:layout_marginLeft="7dp"
+            android:textSize="20dp"
+            />
 
     </LinearLayout>
 
