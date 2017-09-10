@@ -33,10 +33,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Artist artist = mArtistList.get(position);
-        MainActivity.mTrackList.get(0);
+        MainActivity.mTrackList.get(2);
         holder.mName.setText(Html.fromHtml(String.valueOf(artist.getArtistName())));
         holder.mNumber.setText(Integer.toString(position + 1));
-        holder.mTestTracksView.setText(String.valueOf(MainActivity.mTrackList.get(0).getTrackName()));
+        holder.mTestTracksView.setText(String.valueOf(MainActivity.mTrackList.get(2).getTrackName()));
 
     }
 

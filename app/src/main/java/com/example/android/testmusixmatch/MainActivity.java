@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String RUS = "ru";
     public static final String ITALY = "it";
     public static final int COUNT_ARTIST = 100;
+    public static final int COUNT_TRACK = 100;
 
     private RecyclerView mRecyclerView;
     private List<Artist> mArtistList;
@@ -45,14 +46,27 @@ public class MainActivity extends AppCompatActivity {
         mArtistList = new ArrayList<>();
         mTrackList = new ArrayList<>();
 
-        App.getApi().getDataTrack(KEY, 1, 3, "it").enqueue(new Callback<MessageWrapTrack>() {
+        receiveTracks();
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.posts_recycle_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        ListAdapter adapter = new ListAdapter(mArtistList);
+        mRecyclerView.setAdapter(adapter);
+
+        receiveArtists();
+    }
+
+    private void receiveTracks(){
+        App.getApi().getDataTrack(KEY, 1, 3, "ru").enqueue(new Callback<MessageWrapTrack>() {
             @Override
             public void onResponse(Call<MessageWrapTrack> call, Response<MessageWrapTrack> response) {
                 try {
                     for(TrackList all : response.body().getMessage().getBody().getTrackList()){
                         mTrackList.add(all.getTrack());
                     }
-                    //  mRecyclerView.getAdapter().notifyDataSetChanged();
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -64,14 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("fail", t.toString());
             }
         });
+    }
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.posts_recycle_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        ListAdapter adapter = new ListAdapter(mArtistList);
-        mRecyclerView.setAdapter(adapter);
-
+    private void receiveArtists(){
         App.getApi().getData(KEY, 1, COUNT_ARTIST, RUS).enqueue(new Callback<MessageWrap>() {
             @Override
             public void onResponse(Call<MessageWrap> call, Response<MessageWrap> response) {
@@ -93,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 }
 
