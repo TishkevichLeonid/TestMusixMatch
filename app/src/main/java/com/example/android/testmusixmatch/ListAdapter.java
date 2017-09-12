@@ -52,6 +52,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.mNumber.setText(Integer.toString(position + 1));
     }
 
+    public void setArtistList(List<Artist> artistList) {
+        mArtistList = artistList;
+    }
+
     @Override
     public int getItemCount() {
         if (mArtistList.size() == 0) {

@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY = "e9693a724b2cff4dfde5fc39f9bc85a6";
     public static final String RUS = "ru";
     public static final String ITALY = "it";
+    public static final String KEY_RECYCLER = "recycler";
     public static final int COUNT_ARTIST = 100;
     public static final int COUNT_TRACK = 100;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Artist> mArtistList;
     private TrackBox mTrackBox;
     private List<Track> mTrackList;
+    private ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +58,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        ListAdapter adapter = new ListAdapter(mArtistList);
-        mRecyclerView.setAdapter(adapter);
-
         receiveArtists();
+        updateUi();
     }
 
     private void receiveTracks(){
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     for(ArtistList all : response.body().getMessage().getBody().getArtistList()){
                         mArtistList.add(all.getArtist());
                     }
-                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                    updateUi();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -105,6 +105,23 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("fail", t.toString());
             }
         });
+    }
+
+    public void updateUi(){
+        if (adapter == null) {
+            adapter = new ListAdapter(mArtistList);
+            mRecyclerView.setAdapter(adapter);
+        }
+        else {
+            adapter.setArtistList(mArtistList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUi();
     }
 }
 
